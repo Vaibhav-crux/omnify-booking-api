@@ -463,9 +463,9 @@ http://127.0.0.1:8000/api/v1
   **Body**:
   ```json
   {
-    "name": "Yoga",
-    "schedule": "2025-06-10T10:00:00Z",
-    "slots": 10
+  "name": "Yoga",
+  "schedule": "2025-06-15T10:00:00+05:30",
+  "slots": 10
   }
   ```
 - **Response** (201 Created):
@@ -477,7 +477,8 @@ http://127.0.0.1:8000/api/v1
     "time": "10:00:00",
     "instructor": "vaibhav",
     "available_slots": 10,
-    "status": "active"
+    "status": "active",
+    "timezone": "Asia/Kolkata"
   }
   ```
 
@@ -500,7 +501,8 @@ http://127.0.0.1:8000/api/v1
         "time": "10:00:00",
         "instructor": "vaibhav",
         "available_slots": 10,
-        "status": "active"
+        "status": "active",
+        "timezone": "Asia/Kolkata"
       }
     ],
     "total": 1,
@@ -525,7 +527,7 @@ http://127.0.0.1:8000/api/v1
   ```json
   {
     "class_id": "uuid-string",
-    "client_name": "Vaibhav Sharma",
+    "client_name": "Vaibhav",
     "client_email": "vaibhav@gmail.com"
   }
   ```
@@ -537,9 +539,10 @@ http://127.0.0.1:8000/api/v1
     "class_name": "Yoga",
     "class_date": "2025-06-10",
     "class_time": "10:00:00",
-    "client_name": "Vaibhav Sharma",
+    "client_name": "Vaibhav",
     "client_email": "vaibhav@gmail.com",
-    "status": "active"
+    "status": "active",
+    "timezone": "Asia/Kolkata"
   }
   ```
 
