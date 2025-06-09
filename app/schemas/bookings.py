@@ -17,6 +17,7 @@ class BookingResponse(BaseModel):
     client_name: str
     client_email: str
     status: str
+    timezone: str
 
     class Config:
         from_attributes = True

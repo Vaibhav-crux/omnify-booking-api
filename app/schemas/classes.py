@@ -1,21 +1,37 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from datetime import datetime
-from typing import Optional, List
+from typing import List
 from app.database.models.enums import RecordStatus
+import pendulum
+from app.utils.constants import ClassesBooking
 
 class ClassCreate(BaseModel):
-    name: str = Field(..., min_length=1, max_length=255)  # e.g., "Yoga"
-    schedule: datetime  # Date and time of the class
-    slots: int = Field(..., ge=1)  # Number of available spots
+    name: str = Field(..., min_length=1, max_length=255)
+    schedule: datetime
+    slots: int = Field(..., ge=1)
+
+    @validator("schedule")
+    def validate_schedule(cls, value):
+        if not value.tzinfo:
+            raise ValueError("Schedule must be timezone-aware")
+        # Convert to pendulum DateTime for timezone validation
+        pendulum_dt = pendulum.instance(value)
+        # Create a pendulum DateTime in Asia/Kolkata to get its offset
+        ist = pendulum.now(ClassesBooking.DEFAULT_TIMEZONE)
+        # Check if the offset matches Asia/Kolkata's offset (+05:30)
+        if pendulum_dt.utcoffset() != ist.utcoffset():
+            raise ValueError(f"Schedule must be in {ClassesBooking.DEFAULT_TIMEZONE} timezone (UTC+05:30)")
+        return value
 
 class ClassResponse(BaseModel):
     id: str
     name: str
-    date: str  # ISO date, e.g., "2025-06-09"
-    time: str  # ISO time, e.g., "10:00:00"
-    instructor: str  # Instructor's name (username)
+    date: str
+    time: str
+    instructor: str
     available_slots: int
     status: str
+    timezone: str
 
     class Config:
         from_attributes = True

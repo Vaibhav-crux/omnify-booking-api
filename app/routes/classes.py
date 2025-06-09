@@ -17,6 +17,7 @@ async def create_class_endpoint(
 async def get_all_classes_endpoint(
     page: int = Query(1, ge=1, description="Page number (1-based)"),
     limit: int = Query(10, ge=1, le=100, description="Number of items per page (max 100)"),
+    timezone: str = Query("Asia/Kolkata", description="Client timezone (e.g., America/New_York)"),
     user: User = Depends(get_current_user)
 ):
-    return await get_all_classes(page=page, limit=limit)
+    return await get_all_classes(page=page, limit=limit, timezone=timezone)
