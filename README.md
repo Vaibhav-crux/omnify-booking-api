@@ -596,4 +596,4 @@ http://127.0.0.1:8000/api/v1
 - **Timezone**: All datetime fields use UTC (e.g., `2025-06-10T10:00:00Z`).
 - **Security**: Passwords are hashed using `passlib` with bcrypt. Tokens are signed with `PyJWT`.
 
-For issues, check logs in `app/logging/config.py` or contact the developer.
+For issues, check logs in `app/logging/config.py`.
